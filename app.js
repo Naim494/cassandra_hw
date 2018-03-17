@@ -1,6 +1,7 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 const cassandra = require('cassandra-driver');
+const multer  = require('multer')
 
 var client = new cassandra.Client({ contactPoints: ['127.0.0.1:9042'], keyspace: 'hw4' });
 
@@ -11,12 +12,12 @@ app.use(bodyParser.json());
 
 app.post('/deposit', function(req, res) {
 
-	var filename = req.body.filename.toString();
-	var contents = req.body.contents;
+	var filename = req.body.filename;
+	var contents = req.file;
 
 
 	const query = 'INSERT INTO imgs (filename, contents) VALUES (?, ?)';
-	//const params = [filename, contents];
+	const params = [filename, contents];
 
 	//client.execute('INSERT INTO imgs (filename, contents) VALUES ('+ filename +', ' + contents +')');
 
