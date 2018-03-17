@@ -12,14 +12,16 @@ app.use(bodyParser.json());
 app.post('/deposit', function(req, res) {
 
 	var filename = req.body.filename;
-	var contents = new Buffer(req.body.contents);
+	var contents = req.body.contents;
 
 
-	const query = 'INSERT INTO imgs (filename, contents) VALUES ('?', '?')';
-	cont params = [filename, contents];
+	const query = 'INSERT INTO imgs (filename, contents) VALUES (?, ?)';
+	//const params = [filename, contents];
 
-	client.execute(query, params, { prepare: true }, function(err) {
-  		assert.ifError(err);
+	client.execute(query, [filename, contents], { prepare: true }, function(err) {
+  		if (err){
+    		console.log(err);
+  		}
   		console.log('New image inserted in the cluster');
  	});
 
