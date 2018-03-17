@@ -11,12 +11,14 @@ app.use(bodyParser.json());
 
 app.post('/deposit', function(req, res) {
 
-	var filename = req.body.filename;
+	var filename = req.body.filename.toString();
 	var contents = req.body.contents;
 
 
 	const query = 'INSERT INTO imgs (filename, contents) VALUES (?, ?)';
 	//const params = [filename, contents];
+
+	//client.execute('INSERT INTO imgs (filename, contents) VALUES ('+ filename +', ' + contents +')');
 
 	client.execute(query, [filename, contents], { prepare: true }, function(err) {
   		if (err){
