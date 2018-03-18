@@ -59,10 +59,10 @@ app.get('/retrieve', function(req, res) {
   		else{
   			console.log(result);
   		console.log('Image retrieved');
-  		
-  		res.set('Content-Type', mimetype);
 
-  		res.send(result);
+  		res.set('Content-Type', mimetype);
+  		res.end(new Buffer(result.rows[0].contents), 'binary');
+
   	    }
  	});
 
