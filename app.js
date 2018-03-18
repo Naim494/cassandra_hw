@@ -20,8 +20,6 @@ app.post('/deposit', upload.single('image'), function(req, res) {
 	const query = 'INSERT INTO imgs (filename, contents) VALUES (?, ?)';
 	const params = [filename, contents];
 
-	//client.execute('INSERT INTO imgs (filename, contents) VALUES ('+ filename +', ' + contents +')');
-
 	client.execute(query, [filename, contents], { prepare: true }, function(err) {
   		if (err){
     		console.log(err);
